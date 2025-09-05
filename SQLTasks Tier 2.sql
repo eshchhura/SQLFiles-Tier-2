@@ -35,7 +35,7 @@ exploring the data, and getting acquainted with the 3 tables. */
 /* Q1: Some of the facilities charge a fee to members, but some do not.
 Write a SQL query to produce a list of the names of the facilities that do. */
 
-/* SELECT * FROM `Facilities` WHERE membercost = 0; */
+ SELECT * FROM `Facilities` WHERE membercost = 0; 
 
 /* Q2: How many facilities do not charge a fee to members? */
 
@@ -62,7 +62,7 @@ SELECT * FROM `Facilities` WHERE facid IN (1,5)
 more than $100. Return the name and monthly maintenance of the facilities
 in question. */
 
-/*
+
 SELECT name,
 	monthlymaintenance,
      CASE 
@@ -71,7 +71,7 @@ SELECT name,
     END AS expenses
 FROM `Facilities`;
 
-
+/*
 name	monthlymaintenance	expenses	
 Tennis Court 1	200	expensive	
 Tennis Court 2	200	expensive	
@@ -87,20 +87,20 @@ Pool Table	15	cheap
 /* Q6: You'd like to get the first and last name of the last member(s)
 who signed up. Try not to use the LIMIT clause for your solution. */
 
-/* SELECT firstname, surname
+SELECT firstname, surname
 FROM Members
 WHERE joindate = (
     SELECT MAX(joindate)
     FROM Members
 )
-*/
+
 
 /* Q7: Produce a list of all members who have used a tennis court.
 Include in your output the name of the court, and the name of the member
 formatted as a single column. Ensure no duplicate data, and order by
 the member name. */
 
-/* 
+
 SELECT DISTINCT
 	CONCAT(m.firstname, " ", m.surname) as member_name,
     f.name as court_name
@@ -111,7 +111,6 @@ JOIN `Facilities` AS f
 	ON b.facid = f.facid
 WHERE f.name LIKE "Tennis Court%"
 ORDER BY member_name
-*/
 
 /* Q8: Produce a list of bookings on the day of 2012-09-14 which
 will cost the member (or guest) more than $30. Remember that guests have
@@ -120,7 +119,7 @@ the guest user's ID is always 0. Include in your output the name of the
 facility, the name of the member formatted as a single column, and the cost.
 Order by descending cost, and do not use any subqueries. */
 
-/*
+
 SELECT 
 	b.starttime as booking_time,
     f.name as facility_name,
@@ -138,11 +137,11 @@ JOIN `Members` AS m ON b.memid = m.memid
 WHERE b.starttime LIKE "2012-09-14%"
 HAVING booking_cost > 30
 ORDER BY booking_cost DESC;
-*/
+
 
 /* Q9: This time, produce the same result as in Q8, but using a subquery. */
 
-/*
+
 SELECT
 	q.starttime,
 	q.facility_name,
@@ -167,7 +166,6 @@ FROM (
 ) AS q
 WHERE q.booking_cost > 30
 ORDER BY q.booking_cost DESC;
-*/
 
 /* PART 2: SQLite
 
